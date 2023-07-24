@@ -141,14 +141,14 @@ let char='?';
     let ct = response.headers.get('content-type');
 
     if ((ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
-      if (!path.includes('wapp')||!path.includes('langs=')) {
-        /* if not a text response then redirect straight to target */
+     /* if (!path.includes('wapp')||!path.includes('langs=')) {
+     
        let langs='&langs='+xlangs;
         res.setHeader('location', 'https://' + hostProxy + pat + '?'+translator+langs);
         res.statusCode = 301;
         return res.end();
 
-      }
+      }*/
 
       /* Copy over target response and return */
       let resBody = await response.text();
