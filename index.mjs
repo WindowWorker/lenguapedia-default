@@ -141,7 +141,7 @@ Allow: /`);
     let ct = response.headers.get('content-type');
 
     if ((ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
-      if (!path.includes(translator)||!path.includes('langs=')) {
+      if (!path.includes('wapp')||!path.includes('langs=')) {
         /* if not a text response then redirect straight to target */
        let langs='&langs='+xlangs;
         res.setHeader('location', 'https://' + hostProxy + pat + '?'+translator+langs);
