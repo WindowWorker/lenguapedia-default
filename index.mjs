@@ -4,7 +4,6 @@ import transformBody from './modules/body-transform.mjs';
 import addCorsHeaders from './modules/cors-headers.mjs';
 import {normalizeRequest,mapResHeaders} from './modules/http-fetch.mjs';
 import {csscalc} from './modules/csscalc.mjs';
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -24,7 +23,7 @@ maintain(server);
 async function onRequest(req, res) {
  res=availRes(res);
   let hostList = [];
-  const defaultHostProxy='lenguapedia-default.vercel.app';
+  const defaultHostProxy='lenguapedia.org';
   let hostProxy = defaultHostProxy;
 
   let hostTarget = '-m-wikipedia-org.translate.goog';
@@ -114,8 +113,9 @@ Allow: /`);
     /* fetch from your desired target */
     let response = new Response();
 
-
-  if(!path.includes('wapp')){path=path+'?'+translator;}
+let char='?';
+  if(path.includes('?')){char='&';}
+  if(!path.includes('wapp')){path=path+char+translator;}
     try {
       response = await fetch('https://' + hostTarget + path, reqDTO);
 
