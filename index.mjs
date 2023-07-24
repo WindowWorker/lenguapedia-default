@@ -36,6 +36,12 @@ async function onRequest(req, res) {
   let langFrom = req.rawHeaders[req.rawHeaders.indexOf('Lang-From') + 1]||'auto';
   let langTo = req.rawHeaders[req.rawHeaders.indexOf('Lang-To') + 1]||'en';
   let xlangs = 'en.en';
+
+  if(hostProxy=='Host'){hostProxy='lenguapedia-default.vercel.app';}
+  if(wikiPrefix=='Host'){wikiPrefix='en';}
+  if(langTo=='Host'){langTo='en';}
+  if(langFrom=='Host'){langFrom='auto';}
+  
   if((langFrom.toLowerCase()=='auto') || (wikiPrefix==langFrom)){
 
       xlangs = wikiPrefix+'.'+langTo;
@@ -45,7 +51,8 @@ async function onRequest(req, res) {
       xlangs = wikiPrefix+'2'+langFrom+'.'+langTo;
     
   }
-  //console.log(xlangs);
+  
+
   let bkcolor = csscalc(wikiPrefix) + csscalc(langFrom) + csscalc(langTo);
   hostTarget = wikiPrefix + hostTarget;
   hostWiki = wikiPrefix + hostWiki;
@@ -105,6 +112,9 @@ Allow: /`);
 
     /* fetch from your desired target */
     let response = new Response();
+
+
+  if(!path.includes('wapp')){path=path+'?'+translator;}
     try {
       response = await fetch('https://' + hostTarget + path, reqDTO);
 
