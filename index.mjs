@@ -25,17 +25,17 @@ async function onRequest(req, res) {
  res=availRes(res);
   let hostList = [];
   const defaultHostProxy='lenguapedia-default.vercel.app';
-  let hostProxy = 'defaultHostProxy';
+  let hostProxy = defaultHostProxy;
 
   let hostTarget = '-m-wikipedia-org.translate.goog';
   let hostWiki = '.m.wikipedia.org';
   let hostEn = 'lenguapedia-en.vercel.app';
   hostList.push(hostEn);
-
-  hostProxy = req.rawHeaders[req.rawHeaders.indexOf('Host-Proxy') + 1];
-  let wikiPrefix = req.rawHeaders[req.rawHeaders.indexOf('Wiki-Prefix') + 1]||'en';
-  let langFrom = req.rawHeaders[req.rawHeaders.indexOf('Lang-From') + 1]||'auto';
-  let langTo = req.rawHeaders[req.rawHeaders.indexOf('Lang-To') + 1]||'en';
+  let localhost=req.headers['host'];
+  hostProxy = req.headers['host-proxy']||hostProxy;
+  let wikiPrefix = req.headers['wiki-prefix']||'en';
+  let langFrom = req.headers['lang-from']||'auto';
+  let langTo = req.headers['lang-to']||'en';
   let xlangs = 'en.en';
 
   if(hostProxy.toLowerCase()=='host'){hostProxy=defaultHostProxy;}
