@@ -38,10 +38,10 @@ async function onRequest(req, res) {
   let langTo = req.rawHeaders[req.rawHeaders.indexOf('Lang-To') + 1]||'en';
   let xlangs = 'en.en';
 
-  if(hostProxy=='Host'){hostProxy=defaultHostProxy;}
-  if(wikiPrefix=='Host'){wikiPrefix='en';}
-  if(langTo=='Host'){langTo='en';}
-  if(langFrom=='Host'){langFrom='auto';}
+  if(hostProxy.toLowerCase()=='host'){hostProxy=defaultHostProxy;}
+  if(wikiPrefix.toLowerCase()=='host'){wikiPrefix='en';}
+  if(langTo.toLowerCase()=='host'){langTo='en';}
+  if(langFrom.toLowerCase()=='host'){langFrom='auto';}
   
   if((langFrom.toLowerCase()=='auto') || (wikiPrefix==langFrom)){
 
