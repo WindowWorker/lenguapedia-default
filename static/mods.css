@@ -1,0 +1,88 @@
+CAPITALIZER,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+b,
+strong,
+ul,
+table,
+[class*="Vorlage_Überschriftensimulation"],
+.mw-page-title-main,
+div[style*="font-size:130%"],
+.toc,
+[class*="menu__item"],
+[summary="Taxobox"],
+.tagline,
+.breadcrumb-nav-container,
+.wikitable,
+.infobox
+{
+  text-transform: capitalize !important;
+}
+
+HIDDEN-FORCED,
+[class*="open-block open-block"],
+[title="Google translate navigation"],
+iframe[src*="translate.google.com"],
+div[class="eg-machine-translation-page-status missing"],
+.eg-machine-translation-banner,
+.banner-container,
+.page-actions-menu,
+#goog-gt-,
+#logo,
+.edit-page
+{
+   display: none !important;
+   visibility: hidden !important;
+   opacity: 0 !important;
+   max-height: 0px !important;
+   height: 0px !important;
+   transform: scale(0,0) !important;
+   position: absolute !important;
+   z-index: -99 !important;
+}
+
+BODY-FIX,
+body
+{
+margin-top: 0px !important;
+}
+
+.read-more-container{
+  min-height:0px !important;
+}
+
+section.open-block{
+ display:block !important;
+}
+
+BLUEY,
+html,
+body,
+header,
+article,
+div:not([style^="position:absolute;"],[style^="position:relative;z-index:100;"]),
+div.noprint,
+span.mw-tmh-play-icon,
+main,
+app,
+button,
+label,
+footer,
+li[class],
+table[class],
+table[bgcolor="#ffffff"],
+.breadcrumb-nav-container,
+.last-modified-bar
+{
+
+background-color:#cce9ff !important;
+  
+}
+
+#mw-mf-main-menu-button:before{
+background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22%3E %3Ctitle%3E menu %3C/title%3E %3Cpath d=%22M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z%22/%3E %3C/svg%3E") !important;
+}

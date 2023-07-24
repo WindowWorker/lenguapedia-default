@@ -1,0 +1,12 @@
+const style_list = document.querySelectorAll(`
+[style*="`+ hostWiki + `"],
+[style*="`+ hostTarget + `"]
+`);
+    const style_list_length = style_list.length;
+
+    for (let i = 0; i < style_list_length; i++) {
+      try {
+        style_list[i].setAttribute('style', style_list[i].getAttribute('style').replaceAll(hostWiki, hostProxy).replaceAll(hostTarget,hostProxy));
+      
+      } catch (e) { continue; }
+    }
