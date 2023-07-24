@@ -39,7 +39,7 @@ async function onRequest(req, res) {
   if((langFrom.toLowerCase()=='auto') || (wikiPrefix==langFrom)){
 
       xlangs = wikiPrefix+'.'+langTo;
-      
+       
   }else{
 
       xlangs = wikiPrefix+'2'+langFrom+'.'+langTo;
