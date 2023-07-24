@@ -126,9 +126,9 @@ let char='?';
         try {
           response = await fetch('https://' + hostEn + path, reqDTO);
         } catch (e) {
-          res.setHeader('location', 'https://' + hostTarget + path);
+          /*res.setHeader('location', 'https://' + hostTarget + path);
           res.statusCode = 302;
-          return res.endAvail();
+          return res.endAvail();*/
         }
       }
     }
