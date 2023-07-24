@@ -24,7 +24,7 @@ maintain(server);
 async function onRequest(req, res) {
  res=availRes(res);
   let hostList = [];
-  let hostProxy = 'default-lenguapedia.vercel.app';
+  let hostProxy = 'lenguapedia-default.vercel.app';
 
   let hostTarget = '-m-wikipedia-org.translate.goog';
   let hostWiki = '.m.wikipedia.org';
