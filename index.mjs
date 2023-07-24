@@ -76,14 +76,14 @@ async function onRequest(req, res) {
   /*respond to ping from uptime robot*/
   if (path == '/ping') {
     res.statusCode = 200;
-    return res.end();
+    return res.endAvail();
   }
   if ((pat == '/static/link-resolver.v.js')||(pat == '/static/inject-langs.js')){
     let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default'+pat.replace('/static',''));
     res.setHeader('Content-Type', 'text/javascript');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.statusCode = 200;
-    return res.end(await resp.text());
+    return res.endAvail(await resp.text());
   }
 
 
@@ -94,12 +94,12 @@ async function onRequest(req, res) {
     let file = (await resp.text()).replaceAll('cce9ff',bkcolor);
     res.setHeader('Content-Type',resp.headers.get('Content-Type'));
    
-    return res.end(file);
+    return res.endAvail(file);
   }
 
   if (pat == '/robots.txt') {
     res.statusCode = 200;
-    return res.end(
+    return res.endAvail(
       `User-agent: *
 Allow: /`);
 
@@ -128,7 +128,7 @@ let char='?';
         } catch (e) {
           res.setHeader('location', 'https://' + hostTarget + path);
           res.statusCode = 302;
-          return res.end();
+          return res.endAvail();
         }
       }
     }
@@ -146,7 +146,7 @@ let char='?';
        let langs='&langs='+xlangs;
         res.setHeader('location', 'https://' + hostProxy + pat + '?'+translator+langs);
         res.statusCode = 301;
-        return res.end();
+        return res.endAvail();
 
       }*/
 
@@ -155,7 +155,7 @@ let char='?';
 
 
 
-      return res.end(transformBody(resBody, ct, hostList, hostProxy,xlangs));
+      return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs));
 
 
     } else {
