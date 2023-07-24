@@ -24,7 +24,7 @@ maintain(server);
 async function onRequest(req, res) {
  res=availRes(res);
   let hostList = [];
-  const defaultHostProxy='lenguapedia-default.weblet.repl.co';//'lenguapedia-default.vercel.app';
+  const defaultHostProxy='lenguapedia-default.vercel.app';
   let hostProxy = 'defaultHostProxy';
 
   let hostTarget = '-m-wikipedia-org.translate.goog';
