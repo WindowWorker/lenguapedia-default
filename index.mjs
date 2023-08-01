@@ -139,6 +139,9 @@ let char='?';
 
     /* check to see if the response is not a text format */
     let ct = response.headers.get('content-type');
+    res.setHeader('Vercel-CDN-Cache-Control', 'no-cache');
+  res.setHeader('CDN-Cache-Control', 'no-cache');
+  res.setHeader('Cache-Control', 'no-cache');
 
     if ((ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
      /* if (!path.includes('wapp')||!path.includes('langs=')) {
@@ -153,9 +156,7 @@ let char='?';
       /* Copy over target response and return */
       let resBody = await response.text();
 
-  res.setHeader('Vercel-CDN-Cache-Control', 'max-age=86400');
-  res.setHeader('CDN-Cache-Control', 'max-age=86400');
-  res.setHeader('Cache-Control', 'max-age=86400');
+
 
       return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs));
 
@@ -163,9 +164,7 @@ let char='?';
     } else {
     let resBody = Buffer.from(await(response).arrayBuffer());
     res.setHeader('Content-Type',ct);
-        res.setHeader('Vercel-CDN-Cache-Control', 'max-age=86400');
-  res.setHeader('CDN-Cache-Control', 'max-age=86400');
-  res.setHeader('Cache-Control', 'max-age=86400');
+
     return res.endAvail(resBody);
 
     }
