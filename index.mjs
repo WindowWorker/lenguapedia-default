@@ -153,7 +153,9 @@ let char='?';
       /* Copy over target response and return */
       let resBody = await response.text();
 
-
+  res.setHeader('Vercel-CDN-Cache-Control', 'max-age=86400');
+  res.setHeader('CDN-Cache-Control', 'max-age=86400');
+  res.setHeader('Cache-Control', 'max-age=86400');
 
       return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs));
 
@@ -161,6 +163,9 @@ let char='?';
     } else {
     let resBody = Buffer.from(await(response).arrayBuffer());
     res.setHeader('Content-Type',ct);
+        res.setHeader('Vercel-CDN-Cache-Control', 'max-age=86400');
+  res.setHeader('CDN-Cache-Control', 'max-age=86400');
+  res.setHeader('Cache-Control', 'max-age=86400');
     return res.endAvail(resBody);
 
     }
