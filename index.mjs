@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import maintain from './modules/auto-maintain.mjs';
 import {availReq,availRes} from './modules/availability.mjs';
+import './modules/vercel-caches.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -72,7 +73,7 @@ async function onRequest(req, res) {
 
 
   let translator = '_x_tr_sl=' + langFrom + '&_x_tr_tl=' + langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
-  let path = req.url.replaceAll('*', '');
+  let path = removeHache(req.url.replaceAll('*', ''));
   let pat = path.split('?')[0].split('#')[0];
 
 
