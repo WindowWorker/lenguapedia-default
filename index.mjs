@@ -171,7 +171,7 @@ let char='?';
 
 
 
-      return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs));
+      return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs,bkcolor));
 
 
     } else {

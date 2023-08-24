@@ -1,7 +1,11 @@
 import {addLangs} from './langs.mjs';
+import {csscalc} from './csscalc.mjs';
 await import('./preload-css.js');
+let cssmods=await(await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css')).text();
 
-export default function transformBody(resBody, ct, hostList, hostProxy,xlangs) {
+
+export default function transformBody(resBody, ct, hostList, hostProxy,xlangs,bkcolor) { 
+  cssmods.replaceAll('cce9ff',bkcolor);
   const hostList_length = hostList.length;
   if (ct.includes('javascript')) {
     for (let i = 0; i < hostList_length; i++) {
@@ -11,7 +15,7 @@ export default function transformBody(resBody, ct, hostList, hostProxy,xlangs) {
 
 
   resBody = resBody.replace('<head>',
-    `<head modified>
+    `<head>
       <lenguapedia`+
     `   host-list="` + btoa(JSON.stringify(hostList)) +
     `"  host-Proxy="` + btoa(hostProxy) +
