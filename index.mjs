@@ -149,7 +149,7 @@ let char='?';
 
     /* check to see if the response is not a text format */
     let ct = response.headers.get('content-type');
-
+    res.setHeader('content-type', ct);
     res.setHeader('Cloudflare-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
     res.setHeader('Vercel-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
     res.setHeader('CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
