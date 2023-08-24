@@ -14,8 +14,8 @@ export default function transformBody(resBody, ct, hostList, hostProxy,xlangs,bk
   }
 
 
-  resBody = resBody.replace('<head>',
-    `<head>
+  resBody = resBody.replace('<body>',
+    `<body>
       <lenguapedia`+
     `   host-list="` + btoa(JSON.stringify(hostList)) +
     `"  host-Proxy="` + btoa(hostProxy) +
