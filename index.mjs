@@ -106,7 +106,7 @@ async function onRequest(req, res) {
     res.statusCode = 200;
     return res.endAvail(
       `User-agent: *
-Allow: /`);
+      Allow: /`);
 
   }
 
