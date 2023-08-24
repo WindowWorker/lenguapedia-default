@@ -63,16 +63,21 @@ async function onRequest(req, res) {
   hostWiki = wikiPrefix + hostWiki;
   hostList.push(hostWiki);
   hostList.push(hostTarget);
+  let hashWord = unhache(req.url.toString());
+  let hash = '';
   if (wikiPrefix == 'en') {
     hostTarget = 'lenguapedia--en-vercel-app.translate.goog';
     hostWiki = 'en.m.wikipedia.org';
     hostList.push(hostWiki);
     hostList.push(hostTarget);
+    hash=hache(hashWord);
   }
 
 
 
   let translator = '_x_tr_sl=' + langFrom + '&_x_tr_tl=' + langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
+
+
   let path = removeHache(req.url.replaceAll('*', ''));
   let pat = path.split('?')[0].split('#')[0];
 
@@ -106,8 +111,8 @@ async function onRequest(req, res) {
     res.statusCode = 200;
     return res.endAvail(
       `User-agent: *
-      Allow: /`);
-
+      Allow: /`
+    );
   }
 
   req.headers.host = hostTarget;
@@ -122,14 +127,14 @@ let char='?';
   if(path.includes('?')){char='&';}
   if(!path.includes('wapp')){path=path+char+translator;}
     try {
-      response = await fetch('https://' + hostTarget + path, reqDTO);
+      response = await fetch('https://' + hostTarget + path + hash, reqDTO);
 
     } catch (e) {
       try {
-        response = await fetch('https://' + hostWiki + path, reqDTO);
+        response = await fetch('https://' + hostWiki + path + hash, reqDTO);
       } catch (e) {
         try {
-          response = await fetch('https://' + hostEn + path, reqDTO);
+          response = await fetch('https://' + hostEn + path + hash, reqDTO);
         } catch (e) {
           /*res.setHeader('location', 'https://' + hostTarget + path);
           res.statusCode = 302;
@@ -144,9 +149,12 @@ let char='?';
 
     /* check to see if the response is not a text format */
     let ct = response.headers.get('content-type');
-    res.setHeader('Vercel-CDN-Cache-Control', 'no-cache');
-  res.setHeader('CDN-Cache-Control', 'no-cache');
-  res.setHeader('Cache-Control', 'no-cache');
+
+    res.setHeader('Cloudflare-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
+    res.setHeader('Vercel-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
+    res.setHeader('CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
+    res.setHeader('Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
+    res.setHeader('Surrogate-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, , stale-while-revalidate=31535000');
 
     if ((ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
      /* if (!path.includes('wapp')||!path.includes('langs=')) {
