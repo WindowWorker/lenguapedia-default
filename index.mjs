@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import maintain from './modules/auto-maintain.mjs';
 import {availReq,availRes} from './modules/availability.mjs';
+import './modules/x.mjs';
 import './modules/vercel-caches.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -143,7 +144,7 @@ let char='?';
       }
     }
     /* copy over response headers */
-    res = mapResHeaders(res,response);
+   Q(U=>{res = mapResHeaders(res,response);})
 
     res = addCorsHeaders(res);
 

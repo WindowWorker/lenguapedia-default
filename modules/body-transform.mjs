@@ -1,5 +1,4 @@
 import { addLangs } from './langs.mjs';
-import { csscalc } from './csscalc.mjs';
 await import('./preload-css.js');
 let cssmods = await (await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css')).text();
 
@@ -14,7 +13,7 @@ export default function transformBody(resBody, ct, hostList, hostProxy, xlangs, 
   }
 
   let bodyTagHead = resBody.match(/<body[^>]*>/)?.[0]||'<body>';
-
+  console.log(bodyTagHead);
   resBody = resBody.replace(/<body[^>]*>/,
     bodyTagHead +
     `<lenguapedia` +
