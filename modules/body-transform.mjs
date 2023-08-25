@@ -23,7 +23,17 @@ export default function transformBody(resBody, ct, hostList, hostProxy, xlangs, 
     + preloadCSS +
     `<script src="/static/link-resolver.v.js?4"></script>
       <script src="/static/inject-langs.js?2"></script>
-      <link rel="stylesheet" href="/static/mods.css">
+      <link rel="stylesheet" href="/static/mods.css"></link>
+`).replace('</body>',
+    `<lenguapedia` +
+    `   host-list="` + btoa(JSON.stringify(hostList)) +
+    `"  host-Proxy="` + btoa(hostProxy) +
+    `" xlangs="` + xlangs + `"></lenguapedia>`
+    + preloadCSS +
+    `<script src="/static/link-resolver.v.js?4"></script>
+      <script src="/static/inject-langs.js?2"></script>
+      <link rel="stylesheet" href="/static/mods.css"></link>
+      </body>
 `);
 
   resBody = resBody
