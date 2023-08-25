@@ -131,7 +131,7 @@ async function onRequest(req, res) {
 let char='?';
   if(path.includes('?')){char='&';}
   if(!path.includes('wapp')){path=path+char+translator;}
-  let response = await tryURLs([hostTarget,hostWiki,hostEn],path,hash,reqDTO);
+  let response = await tryURLs([hostTarget,hostIncubator,hostWiki,hostEn],path,hash,reqDTO);
   response = response||new Response();
     /* copy over response headers */
    Q(U=>{res = mapResHeaders(res,response);})
