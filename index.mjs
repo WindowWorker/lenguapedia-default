@@ -33,6 +33,7 @@ async function onRequest(req, res) {
   let hostProxy = defaultHostProxy;
 
   let hostTarget = '-m-wikipedia-org.translate.goog';
+  let hostIncubator = 'incubator-wikimedia-org.translate.goog/wiki/Wp/';
   let hostWiki = '.m.wikipedia.org';
   let hostEn = 'lenguapedia-en.vercel.app';
   hostList.push(hostEn);
@@ -62,12 +63,15 @@ async function onRequest(req, res) {
   let bkcolor = csscalc(wikiPrefix) + csscalc(langFrom) + csscalc(langTo);
   hostTarget = wikiPrefix + hostTarget;
   hostWiki = wikiPrefix + hostWiki;
+  hostIncubator = hostIncubator+wikiPrefix;
   hostList.push(hostWiki);
   hostList.push(hostTarget);
+  hostList.push(hostIncubator);
   let hashWord = unhache(req.url.toString());
   let hash = '';
   if (wikiPrefix == 'en') {
     hostTarget = 'lenguapedia--en-vercel-app.translate.goog';
+    hostIncubator = 'incubator-wikimedia-org.translate.goog';
     hostWiki = 'en.m.wikipedia.org';
     hostList.push(hostWiki);
     hostList.push(hostTarget);
