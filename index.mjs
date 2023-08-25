@@ -22,6 +22,21 @@ let server = http.createServer(availReq(onRequest));
 server.listen(3000);
 maintain(server);
 
+async function tryURLs(urlList,path,hash,reqDTO){
+  const urlList_length=urlList.length;    
+  for(let i=0;i<urlList_length;i++){try {
+    
+    let response = await fetch('https://' + urlList[i] + path + hash, reqDTO);
+    if(response.status<400){
+      return response;
+    }
+    
+    } catch (e) {continue;}}
+
+return;
+  
+}
+
 async function onRequest(req, res) {
     
   req.socket.setNoDelay();
@@ -178,17 +193,3 @@ let char='?';
 }
 
 
-async function tryURLs(urlList,path,hash,reqDTO){
-  const urlList_length=urlList.length;    
-  for(let i=0;i<urlList_length;i++){try {
-    
-    let response = await fetch('https://' + urlList[i] + path + hash, reqDTO);
-    if(response.status<400){
-      return response;
-    }
-    
-    } catch (e) {continue;}}
-
-return;
-  
-}
