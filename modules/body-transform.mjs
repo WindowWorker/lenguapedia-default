@@ -13,7 +13,7 @@ export default function transformBody(resBody, ct, hostList, hostProxy, xlangs, 
   }
 
   let bodyTagHead = resBody.match(/<body[^>]*>/)?.[0]||'<body>';
-  console.log(bodyTagHead);
+
   resBody = resBody.replace(/<body[^>]*>/,
     bodyTagHead +
     `<lenguapedia` +

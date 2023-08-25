@@ -122,27 +122,13 @@ async function onRequest(req, res) {
   let reqDTO = await normalizeRequest(req);
 
     /* fetch from your desired target */
-    let response = new Response();
+
 
 let char='?';
   if(path.includes('?')){char='&';}
   if(!path.includes('wapp')){path=path+char+translator;}
-    try {
-      response = await fetch('https://' + hostTarget + path + hash, reqDTO);
-
-    } catch (e) {
-      try {
-        response = await fetch('https://' + hostWiki + path + hash, reqDTO);
-      } catch (e) {
-        try {
-          response = await fetch('https://' + hostEn + path + hash, reqDTO);
-        } catch (e) {
-          /*res.setHeader('location', 'https://' + hostTarget + path);
-          res.statusCode = 302;
-          return res.endAvail();*/
-        }
-      }
-    }
+  let response = await tryURLs([hostTarget,hostWiki,hostEn],path,hash,reqDTO);
+  response = response||new Response();
     /* copy over response headers */
    Q(U=>{res = mapResHeaders(res,response);})
 
@@ -185,4 +171,20 @@ let char='?';
 
 
 
+}
+
+
+async function tryURLs(urlList,path,hash,reqDTO){
+  const urlList_length=urlList.length;    
+  for(let i=0;i<urlList_length;i++){try {
+    
+    let response = await fetch('https://' + urlList[i] + path + hash, reqDTO);
+    if(response.status<400){
+      return response;
+    }
+    
+    } catch (e) {continue;}}
+
+return;
+  
 }
