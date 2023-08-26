@@ -31,7 +31,8 @@ async function tryURLs(urlList,path,hash,reqDTO){
       let ct=response.headers.get('content-type');
       if(ct&&ct.includes('html')){
         let text = await response.clone().text();
-        if(text.includes('Can &#39;t reach this website'))
+        if(text.includes('t reach this website')
+         ||text.includes('<titlelenguapedia|>'))
         {continue;}
       }
       return response;
