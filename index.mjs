@@ -148,12 +148,14 @@ let char='?';
   if(!path.includes('wapp')){path=path+char+translator;}
   let response = await tryURLs([hostTarget,hostIncubator,hostWiki,hostEn],path,hash,reqDTO);
   response = response||new Response();
+  response.headers.get('content-language');
     /* copy over response headers */
    Q(U=>{res = mapResHeaders(res,response);})
 
     res = addCorsHeaders(res);
 
     /* check to see if the response is not a text format */
+    let cl = response.headers.get('content-language');
     let ct = response.headers.get('content-type');
     res.setHeader('content-type', ct);
     res.setHeader('Cloudflare-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
@@ -162,7 +164,7 @@ let char='?';
     res.setHeader('Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('Surrogate-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
 
-    if ((ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
+    if ((cl)&&(cl=='en')&&(ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
      /* if (!path.includes('wapp')||!path.includes('langs=')) {
      
        let langs='&langs='+xlangs;
