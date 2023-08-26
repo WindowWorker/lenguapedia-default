@@ -27,7 +27,13 @@ async function tryURLs(urlList,path,hash,reqDTO){
   for(let i=0;i<urlList_length;i++){try {
     
     let response = await fetch('https://' + urlList[i] + path + hash, reqDTO);
-    if(response.status<400){
+    if(response.status<300){
+      let ct=response.headers.get('content-type');
+      if(ct&&ct.includes('html')){
+        let text = await response.clone().text();
+        if(text.includes('Can &#39;t reach this website'))
+        {continue;}
+      }
       return response;
     }
     
