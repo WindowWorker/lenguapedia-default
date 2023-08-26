@@ -30,10 +30,10 @@ async function tryURLs(urlList,path,hash,reqDTO){
     if(response.status<300){
       let ct=response.headers.get('content-type');
       if(ct&&ct.includes('html')){
-        let text = await response.clone().text();
+       /* let text = await response.clone().text();
         if(text.includes('t reach this website')
          ||text.includes('<titlelenguapedia|>'))
-        {continue;}
+        {continue;}*/
       }
       return response;
     }
