@@ -164,7 +164,7 @@ let char='?';
     res.setHeader('Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('Surrogate-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
 
-    if ((cl)&&(cl=='en')&&(ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
+    if (/*(cl)&&(cl=='en')&&*/(ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
      /* if (!path.includes('wapp')||!path.includes('langs=')) {
      
        let langs='&langs='+xlangs;
