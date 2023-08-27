@@ -152,7 +152,7 @@ let uselang = 'uselang='+langTo;
 
 let char='?';
   if(path.includes('?')){char='&';}
-  if(!path.includes('wapp')){path=path+char+translator+'&'+uselang;}
+  if(!path.includes('wapp')){path=path+char+uselang+'&'+translator;}
   else{path = path+char+uselang; }
   let response = await tryURLs([hostTarget,hostIncubator,hostWiki,hostEn],path,hash,reqDTO);
   response = response||new Response();
