@@ -99,7 +99,7 @@ async function onRequest(req, res) {
     hostList.push(hostTarget);
     hash=hache(hashWord);
   }
-let uselang = 'uselang='+langTo;
+
 
 
   let translator = '_x_tr_sl=' + langFrom + '&_x_tr_tl=' + langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
@@ -154,9 +154,8 @@ let char='?';
   if(path.includes('?')){char='&';}
   if(!path.includes('wapp')){
    path=path+char;
-   path=path.split('?').join('?'+uselang)+translator;
+   path=path+translator;
   }
-  else{path = path+char+uselang; }
   let response = await tryURLs([hostTarget,hostIncubator,hostWiki,hostEn],path,hash,reqDTO);
   response = response||new Response();
   response.headers.get('content-language');
