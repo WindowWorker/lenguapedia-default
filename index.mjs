@@ -34,48 +34,23 @@ let hostConfig=getHostConfigDefaults();
     hostConfig=configFromRequest(hostConfig,req);
  
 
-
-  let bkcolor = csscalc(hostConfig.wikiPrefix) + csscalc(hostConfig.langFrom) + csscalc(hostConfig.langTo);
+  let bkcolor = 
+    csscalc(hostConfig.wikiPrefix) +
+    csscalc(hostConfig.langFrom) +
+    csscalc(hostConfig.langTo);
   
-  let translator = '_x_tr_sl=' + hostConfig.langFrom + '&_x_tr_tl=' + hostConfig.langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
+  let translator = 
+    '_x_tr_sl=' + hostConfig.langFrom +
+    '&_x_tr_tl=' + hostConfig.langTo +
+    '&_x_tr_hl=en&_x_tr_pto=wapp';
 
 
   let path = removeHache(req.url.replaceAll('*', ''));
   let pat = path.split('?')[0].split('#')[0];
 
+  let staticFiles = await checkStaticsFiles(pat,res);
+  if(staticFiles){return staticFiles;}
 
-
-  /*respond to ping from uptime robot*/
-  if (path == '/ping') {
-    res.statusCode = 200;
-    return res.endAvail();
-  }
-  if ((pat == '/static/link-resolver.v.js')||(pat == '/static/inject-langs.js')){
-    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default'+pat.replace('/static',''));
-    res.setHeader('Content-Type', 'text/javascript');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.statusCode = 200;
-    return res.endAvail(await resp.text());
-  }
-
-
-  if (pat == '/static/mods.css') {
-
-
-    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css');
-    let file = (await resp.text()).replaceAll('cce9ff',bkcolor);
-    res.setHeader('Content-Type',resp.headers.get('Content-Type'));
-   
-    return res.endAvail(file);
-  }
-
-  if (pat == '/robots.txt') {
-    res.statusCode = 200;
-    return res.endAvail(
-      `User-agent: *
-       Allow: /`
-    );
-  }
 
   req.headers.host = hostConfig.hostTarget;
   req.headers.referer = hostConfig.hostTarget;

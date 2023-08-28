@@ -89,3 +89,39 @@ globalThis.configFromRequest = function(config, req) {
 
   return config;
 }
+
+
+globalThis.checkStaticsFiles = async function(pat,res){
+  
+  /*respond to ping from uptime robot*/
+  if (pat == '/ping') {
+    res.statusCode = 200;
+    return res.endAvail();
+  }
+  if ((pat == '/static/link-resolver.v.js')||(pat == '/static/inject-langs.js')){
+    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default'+pat.replace('/static',''));
+    res.setHeader('Content-Type', 'text/javascript');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.statusCode = 200;
+    return res.endAvail(await resp.text());
+  }
+
+
+  if (pat == '/static/mods.css') {
+
+
+    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css');
+    let file = (await resp.text()).replaceAll('cce9ff',bkcolor);
+    res.setHeader('Content-Type',resp.headers.get('Content-Type'));
+   
+    return res.endAvail(file);
+  }
+
+  if (pat == '/robots.txt') {
+    res.statusCode = 200;
+    return res.endAvail(
+      `User-agent: *
+       Allow: /`
+    );
+  }
+}
