@@ -73,7 +73,7 @@ let hostConfig=getHostConfigDefaults();
     res.statusCode = 200;
     return res.endAvail(
       `User-agent: *
-      Allow: /`
+       Allow: /`
     );
   }
 

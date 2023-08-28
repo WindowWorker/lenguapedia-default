@@ -33,7 +33,7 @@ void async function InjectLangs(){
       try {
         let prefix='?';
         if(dataSrcs[i].getAttribute('data-src').includes('?')){prefix='&';}
-        dataSrcs[i].setAttribute('data-src', dataSrcs[i].getAttribute('data-src')+prefix'langs='+xlangs);
+        dataSrcs[i].setAttribute('data-src', dataSrcs[i].getAttribute('data-src')+prefix+'langs='+xlangs);
 
       } catch (e) { continue; }
     }
