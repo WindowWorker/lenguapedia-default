@@ -128,7 +128,13 @@ let char='?';
 
 
 
-      return res.endAvail(transformBody(resBody, ct, hostConfig.hostList, hostConfig.hostProxy,hostConfig.xlangs,bkcolor));
+      return res.endAvail(
+              transformBody(resBody,
+                            ct,
+                            hostConfig.hostList,
+                            hostConfig.hostProxy,
+                            hostConfig.xlangs,
+                            bkcolor));
 
 
     } else {
