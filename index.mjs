@@ -11,7 +11,7 @@ import maintain from './modules/auto-maintain.mjs';
 import {availReq,availRes} from './modules/availability.mjs';
 import './modules/x.mjs';
 import './modules/vercel-caches.mjs';
-
+import './modules/lenguapedia.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -22,27 +22,6 @@ let server = http.createServer(availReq(onRequest));
 server.listen(3000);
 maintain(server);
 
-async function tryURLs(urlList,path,hash,reqDTO){
-  const urlList_length=urlList.length;    
-  for(let i=0;i<urlList_length;i++){try {
-    
-    let response = await fetch('https://' + urlList[i] + path + hash, reqDTO);
-    if(response.status<300){
-      let ct=response.headers.get('content-type');
-      if(ct&&ct.includes('html')){
-       /* let text = await response.clone().text();
-        if(text.includes('t reach this website')
-         ||text.includes('<titlelenguapedia|>'))
-        {continue;}*/
-      }
-      return response;
-    }
-    
-    } catch (e) {continue;}}
-
-return;
-  
-}
 
 async function onRequest(req, res) {
     
@@ -50,59 +29,15 @@ async function onRequest(req, res) {
   res.socket.setNoDelay();
   
  res=availRes(res);
-  let hostList = [];
-  const defaultHostProxy='lenguapedia.org';
-  let hostProxy = defaultHostProxy;
 
-  let hostTarget = '-m-wikipedia-org.translate.goog';
-  let hostIncubator = 'incubator-wikimedia-org.translate.goog/wiki/Wp/';
-  let hostWiki = '.m.wikipedia.org';
-  let hostEn = 'lenguapedia-en.vercel.app';
-  hostList.push(hostEn);
-  let localhost=req.headers['host'];
-  hostProxy = req.headers['host-proxy']||hostProxy;
-  let wikiPrefix = req.headers['wiki-prefix']||'en';
-  let langFrom = req.headers['lang-from']||'auto';
-  let langTo = req.headers['lang-to']||'en';
-  let xlangs = 'en.en';
+let hostConfig=getHostConfigDefaults();
+    hostConfig=configFromRequest(hostConfig,req);
+ 
 
-  if(hostProxy.toLowerCase()=='host'){hostProxy=defaultHostProxy;}
-  if(wikiPrefix.toLowerCase()=='host'){wikiPrefix='en';}
-  if(langTo.toLowerCase()=='host'){langTo='en';}
-  if(langFrom.toLowerCase()=='host'){langFrom='auto';}
+
+  let bkcolor = csscalc(hostConfig.wikiPrefix) + csscalc(hostConfig.langFrom) + csscalc(hostConfig.langTo);
   
-  if((langFrom.toLowerCase()=='auto') || (wikiPrefix==langFrom)){
-
-      xlangs = wikiPrefix+'.'+langTo;
-       
-  }else{
-
-      xlangs = wikiPrefix+'2'+langFrom+'.'+langTo;
-    
-  }
-  
-
-  let bkcolor = csscalc(wikiPrefix) + csscalc(langFrom) + csscalc(langTo);
-  hostTarget = wikiPrefix + hostTarget;
-  hostWiki = wikiPrefix + hostWiki;
-  hostIncubator = hostIncubator+wikiPrefix;
-  hostList.push(hostWiki);
-  hostList.push(hostTarget);
-  hostList.push(hostIncubator);
-  let hashWord = unhache(req.url.toString());
-  let hash = '';
-  if (wikiPrefix == 'en') {
-    hostTarget = 'lenguapedia--en-vercel-app.translate.goog';
-    hostIncubator = 'incubator-wikimedia-org.translate.goog';
-    hostWiki = 'en.m.wikipedia.org';
-    hostList.push(hostWiki);
-    hostList.push(hostTarget);
-    hash=hache(hashWord);
-  }
-
-
-
-  let translator = '_x_tr_sl=' + langFrom + '&_x_tr_tl=' + langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
+  let translator = '_x_tr_sl=' + hostConfig.langFrom + '&_x_tr_tl=' + hostConfig.langTo + '&_x_tr_hl=en&_x_tr_pto=wapp';
 
 
   let path = removeHache(req.url.replaceAll('*', ''));
@@ -142,8 +77,8 @@ async function onRequest(req, res) {
     );
   }
 
-  req.headers.host = hostTarget;
-  req.headers.referer = hostTarget;
+  req.headers.host = hostConfig.hostTarget;
+  req.headers.referer = hostConfig.hostTarget;
 
   let reqDTO = await normalizeRequest(req);
 
@@ -156,7 +91,11 @@ let char='?';
    path=path+char;
    path=path+translator;
   }
-  let response = await tryURLs([hostTarget,hostIncubator,hostWiki,hostEn],path,hash,reqDTO);
+  let response = await tryURLs([
+    hostConfig.hostTarget,
+    hostConfig.hostIncubator,
+    hostConfig.hostWiki,
+    hostConfig.hostEn],path,hostConfig.hash,reqDTO);
   response = response||new Response();
   response.headers.get('content-language');
     /* copy over response headers */
@@ -189,7 +128,7 @@ let char='?';
 
 
 
-      return res.endAvail(transformBody(resBody, ct, hostList, hostProxy,xlangs,bkcolor));
+      return res.endAvail(transformBody(resBody, ct, hostConfig.hostList, hostConfig.hostProxy,hostConfig.xlangs,bkcolor));
 
 
     } else {
