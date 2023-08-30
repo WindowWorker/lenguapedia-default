@@ -133,4 +133,5 @@ str=str.replaceAll("(a')","á")
   .replaceAll("(i')","í")
   .replaceAll("(o')","ó")
   .replaceAll("(u')","ú")
+  return str;
 }
