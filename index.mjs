@@ -45,7 +45,7 @@ let hostConfig=getHostConfigDefaults();
     '&_x_tr_hl=en&_x_tr_pto=wapp';
 
 
-  let path = removeHache(req.url.replaceAll('*', ''));
+  let path = safeURLChars(removeHache(req.url.replaceAll('*', '')));
   let pat = path.split('?')[0].split('#')[0];
 
   let staticFiles = await checkStaticsFiles(pat,res);

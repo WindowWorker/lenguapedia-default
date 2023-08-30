@@ -125,3 +125,12 @@ globalThis.checkStaticsFiles = async function(pat,res){
     );
   }
 }
+
+
+globalThis.safeURLChars=function(str){
+str=str.replaceAll("(a')","á")
+.replaceAll("(e')","é")
+  .replaceAll("(i')","í")
+  .replaceAll("(o')","ó")
+  .replaceAll("(u')","ú")
+}
