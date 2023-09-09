@@ -32,7 +32,8 @@ async function onRequest(req, res) {
 
 let hostConfig=getHostConfigDefaults();
     hostConfig=configFromRequest(hostConfig,req);
- 
+
+  let referer = req.headers['referer'];
 
   let bkcolor = 
     csscalc(hostConfig.wikiPrefix) +
@@ -101,7 +102,14 @@ let char='?';
       /* Copy over target response and return */
       let resBody = await response.text();
 
-
+      resBody=resBody.replace('</head>',
+        `<http>
+          <http-response>
+            <http-headers>
+              <http-header key="referer" value="`+referer+`"></http-header>
+            </http-headers>
+          </http-response>
+        </http><script src="https://files-servleteer.vercel.app/lenguapedia/check-referer.js"></script></head>`);
 
       return res.endAvail(
               transformBody(resBody,
