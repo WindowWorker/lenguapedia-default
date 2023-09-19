@@ -49,7 +49,7 @@ let hostConfig=getHostConfigDefaults();
   let path = safeURLChars(removeHache(req.url.replaceAll('*', '')));
   let pat = path.split('?')[0].split('#')[0];
 
-  let staticFiles = await checkStaticsFiles(pat,res);
+  let staticFiles = await checkStaticsFiles(pat,res,bkcolor);
   if(staticFiles){return staticFiles;}
 
 

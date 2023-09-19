@@ -91,7 +91,7 @@ globalThis.configFromRequest = function(config, req) {
 }
 
 
-globalThis.checkStaticsFiles = async function(pat,res){
+globalThis.checkStaticsFiles = async function(pat,res,bkcolor){
   
   /*respond to ping from uptime robot*/
   if (pat == '/ping') {
