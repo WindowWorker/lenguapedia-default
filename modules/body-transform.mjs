@@ -22,7 +22,7 @@ export default function transformBody(resBody, ct, hostList, hostProxy, xlangs, 
     `" xlangs="` + xlangs + `"></lenguapedia>`
     + preloadCSS +
     `<script src="/static/link-resolver.v.js?4"></script>
-      <script src="/static/inject-langs.js?2"></script>
+      <script src="/static/inject-langs.js?2" onerror="(function(){let s=document.createElement('script');s.src='https://lenguapedia.org/static/inject-langs.js';document.body.appendChild(s);})();"></script>
       <link rel="stylesheet" href="/static/mods.css"></link>
 `).replace('</body>',
     `<lenguapedia` +
