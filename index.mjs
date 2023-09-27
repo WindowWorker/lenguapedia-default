@@ -81,7 +81,7 @@ let char='?';
     /* copy over response headers */
    Q(U=>{res = mapResHeaders(res,response);});
 
-   Q(U=>{ res = addCorsHeaders(res);});J
+   Q(U=>{ res = addCorsHeaders(res);});
 
     /* check to see if the response is not a text format */
     let cl = response.headers.get('content-language');
