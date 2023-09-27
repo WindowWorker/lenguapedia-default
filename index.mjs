@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import {default as nodeFetch} from 'node-fetch';
 import http from 'http';
 import transformBody from './modules/body-transform.mjs';
 import addCorsHeaders from './modules/cors-headers.mjs';
@@ -16,6 +16,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 let path_join = path.join;
+
+
 
 let server = http.createServer(availReq(onRequest));
 //process.setMaxListeners(100);
@@ -84,13 +86,13 @@ let char='?';
     /* check to see if the response is not a text format */
     let cl = response.headers.get('content-language');
     let ct = response.headers.get('content-type');
-    res.setHeader('content-type', ct);
+   Q(U=>{  res.setHeader('content-type', ct);
     res.setHeader('Cloudflare-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('Vercel-CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('CDN-Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('Cache-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
     res.setHeader('Surrogate-Control', 'public, max-age=96400, s-max-age=96400, stale-if-error=31535000, stale-while-revalidate=31535000');
-
+});
     if (/*(cl)&&(cl=='en')&&*/(ct) && (!ct.includes('image')) && (!ct.includes('video')) && (!ct.includes('audio'))) {
      /* if (!path.includes('wapp')||!path.includes('langs=')) {
      
@@ -124,7 +126,7 @@ let char='?';
 
     } else {
     let resBody = Buffer.from(await(response).arrayBuffer());
-    res.setHeader('Content-Type',ct);
+   Q(U=>{  res.setHeader('Content-Type',ct);});
 
     return res.endAvail(resBody);
 

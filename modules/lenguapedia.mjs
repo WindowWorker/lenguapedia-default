@@ -1,4 +1,5 @@
 import './vercel-caches.mjs';
+import fetch from 'node-fetch';
 
 globalThis.tryURLs = async function(urlList, path, hash, reqDTO) {
   const urlList_length = urlList.length;
