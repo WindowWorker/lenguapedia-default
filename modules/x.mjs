@@ -2,6 +2,7 @@
 globalThis.jot=$=>{
     let obj=Object.create(null);
     obj.$=$;
+    Object.seal(obj);
     return obj;
     };
 
@@ -87,6 +88,7 @@ String.prototype.replaceAllI = function(strReplace, strWith) {
     globalThis.sleep = (ms)=>{
       return new Promise((resolve) => {
         setTimeout(resolve, ms);
+        return;
       });
     }
     
@@ -178,7 +180,15 @@ String.prototype.replaceAllI = function(strReplace, strWith) {
     globalThis.ifTry=(bool,then,elseThen)=>{
         if(bool){
             try{
-                return then();
+                if((typeof bool)=='function'){
+                    if(bool()){
+                        return then();
+                    }else{
+                        return elseThen(e);
+                    }
+                }else{
+                    return then();
+                }
             }catch(e){
                 if(elseThen){
                     return elseThen(e);
@@ -287,7 +297,7 @@ globalThis.fetchArrayBuffer=async function(){
 
 Response.prototype.copy=async function(){
     let bodyCopy = this.fullBody;
-    if(!bodyCopy){bodyCopy=await this.arrayBuffer();}
+    if(!bodyCopy){bodyCopy=await this.clone().arrayBuffer();}
     let resDTO = {};
     for(let key in this){
         
@@ -313,11 +323,38 @@ Response.prototype.copy=async function(){
     return res;
 }
 
+globalThis.responseCopy= async function(thisRes){
+    let bodyCopy = thisRes.fullBody;
+    if(!bodyCopy){bodyCopy=await thisRes.arrayBuffer();}
+    let resDTO = {};
+    for(let key in thisRes){
+        
+      if(key=='headers'){
+        resDTO.headers=new Headers(thisRes.headers);
+        continue;
+      }
+      if(key=='body'){
+        resDTO.body=bodyCopy;
+        continue;
+      }
+      resDTO[key]=thisRes[key];
+      
+    }
+    let res = new Response(bodyCopy,resDTO);
+    res.fullBody = bodyCopy;
+    for(let key in resDTO){try{
+
+        if(!res[key]){
+         res[key]=resDTO[key];
+        }
+    }catch(e){continue;}}
+    return res;
+}
 
 Request.prototype.copy=async function(){
 
     let bodyCopy = this.fullBody;
-    if(!bodyCopy&&this.body){bodyCopy = await this.arrayBuffer();}
+    if(!bodyCopy&&this.body){bodyCopy = await this.clone().arrayBuffer();}
     let reqDTO = {};
     for(let key in this){
         if(key!='body'){

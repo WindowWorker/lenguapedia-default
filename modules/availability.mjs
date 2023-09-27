@@ -57,22 +57,22 @@ export function availReq(onReq){
     res=availRes(res);
       setTimeout(X=>{try{res.endAvail();delete responseBuffer[res.resId];}catch(e){}},5000);
     const rtrn = await onReq(req,res);
-    Q(U=>req?.socket?.destroySoon());
-    Q(U=>res?.socket?.destroySoon());
+   // Q(U=>req?.socket?.destroySoon());
+   // Q(U=>res?.socket?.destroySoon());
       return rtrn;
   } catch (e) {
     console.lag(e);
     let stack = e.stack || "";
     res.statusCode = 500;
-    Q(U=>req?.socket?.destroySoon());
-    Q(U=>res?.socket?.destroySoon());
+    //Q(U=>req?.socket?.destroySoon());
+   // Q(U=>res?.socket?.destroySoon());
     return res.endAvail('500 ' + e.message + '\n' + stack);
 
   }
     }catch(e){
       console.lag(e);
-    Q(U=>req?.socket?.destroy());
-    Q(U=>res?.socket?.destroy());
+   // Q(U=>req?.socket?.destroy());
+   // Q(U=>res?.socket?.destroy());
       }
   }
 
