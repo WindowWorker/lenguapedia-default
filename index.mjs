@@ -18,7 +18,8 @@ const __dirname = dirname(__filename);
 let path_join = path.join;
 
 let server = http.createServer(availReq(onRequest));
-
+process.setMaxListeners(100);
+require('events').defaultMaxListeners = 100;
 server.listen(3000);
 maintain(server);
 
@@ -27,6 +28,7 @@ async function onRequest(req, res) {
     
   req.socket.setNoDelay();
   res.socket.setNoDelay();
+  
   
  res=availRes(res);
 
