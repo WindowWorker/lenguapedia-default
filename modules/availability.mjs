@@ -1,8 +1,6 @@
 import {httpSafe} from './http-safe.mjs';
-    
-    globalThis.console.lag=async function(){
-      return console.log(...arguments);
-    }
+import './x.mjs';  
+
     
 globalThis.responseBuffer={};
 
@@ -45,7 +43,7 @@ res=httpSafe(res);
   }
   res.endAvail=function(data, encoding, callback){
     globalThis.responseBuffer.tryRemove(res.resId);
-    res.socket.destroySoon();
+
     return res.endSafe(data, encoding, callback); 
 }
 return res;
@@ -59,22 +57,22 @@ export function availReq(onReq){
     res=availRes(res);
       setTimeout(X=>{try{res.endAvail();delete responseBuffer[res.resId];}catch(e){}},5000);
     const rtrn = await onReq(req,res);
-    req.socket.destroySoon();
-    res.socket.destroySoon();
+    Q(U=>req?.socket?.destroySoon());
+    Q(U=>res?.socket?.destroySoon());
       return rtrn;
   } catch (e) {
     console.lag(e);
     let stack = e.stack || "";
     res.statusCode = 500;
-    req.socket.destroySoon();
-    res.socket.destroySoon();
+    Q(U=>req?.socket?.destroySoon());
+    Q(U=>res?.socket?.destroySoon());
     return res.endAvail('500 ' + e.message + '\n' + stack);
 
   }
     }catch(e){
       console.lag(e);
-      req.socket.destroy();
-      res.socket.destroy();
+    Q(U=>req?.socket?.destroy());
+    Q(U=>res?.socket?.destroy());
       }
   }
 

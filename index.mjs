@@ -18,8 +18,8 @@ const __dirname = dirname(__filename);
 let path_join = path.join;
 
 let server = http.createServer(availReq(onRequest));
-process.setMaxListeners(100);
-require('events').defaultMaxListeners = 100;
+//process.setMaxListeners(100);
+//require('events').defaultMaxListeners = 1;
 server.listen(3000);
 maintain(server);
 
