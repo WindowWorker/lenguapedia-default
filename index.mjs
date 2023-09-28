@@ -1,4 +1,4 @@
-import {default as nodeFetch} from 'node-fetch';
+import fetch from 'node-fetch';
 import http from 'http';
 import transformBody from './modules/body-transform.mjs';
 import addCorsHeaders from './modules/cors-headers.mjs';
