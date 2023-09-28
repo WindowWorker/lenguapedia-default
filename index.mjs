@@ -172,8 +172,13 @@ response = await tryURLs([
 
 
     } else {
-
-    let resBody = Buffer.from(await(response).arrayBuffer());
+    
+    let resBody ;
+      if(response.fullBody){
+         resBody = Buffer.from(response.fullBody);
+      }else{
+     resBody = Buffer.from(await(response).arrayBuffer());
+      }
    Q(U=>{  res.setHeader('Content-Type',ct);});
 
     return res.endAvail(resBody);
