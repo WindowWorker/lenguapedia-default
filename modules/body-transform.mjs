@@ -4,7 +4,8 @@ let cssmods = await (await fetch('https://files-servleteer.vercel.app/lenguapedi
 
 
 export default function transformBody(resBody, ct, hostList, hostProxy, xlangs, bkcolor) {
-  cssmods.replaceAll('cce9ff', bkcolor);
+  cssmods.replaceAll('cce9ff', bkcolor)
+  .replaceAll('rgba(255,255,255,0.69)', bkcolor);
   const hostList_length = hostList.length;
   if (ct.includes('javascript')) {
     for (let i = 0; i < hostList_length; i++) {
