@@ -8,10 +8,12 @@ globalThis.serverlessCache.put=function(key,val){
 }
 globalThis.serverlessCache.putClone=async function(key,val){
 
-  let r = await Promise.race(responseCopy(val),sleep(50));
+  let r = await responseCopy(val);
+  if(!val.fullBody){val.fullBody=r?.fullBody;}
   if(!r){return;}
-  console.log(r);
+ // console.log(r);
   globalThis.serverlessCache[key]=r;
+  return val;
 }
 
 

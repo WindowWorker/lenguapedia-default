@@ -1,3 +1,20 @@
+/** 
+Root Fallback
+<style>
+*{display:none;}
+</style>
+<script>
+void async function(){
+
+let root=await fetch('/_root');
+let homePage=await root.text();
+
+document.write(homePage);
+
+}();
+</script>
+*/
+
 import fetch from 'node-fetch';
 import http from 'http';
 import transformBody from './modules/body-transform.mjs';
@@ -65,6 +82,8 @@ let hostConfig=getHostConfigDefaults();
 
 
   let path = safeURLChars(removeHache(req.url.replaceAll('*', '')));
+  if(path.startsWith('/_root/')){path=path.replace('/_root/','/');}
+  else if(path.startsWith('/_root')){path=path.replace('/_root','/');}
   let pat = path.split('?')[0].split('#')[0];
 
   let staticFiles = await checkStaticsFiles(pat,res,bkcolor);
