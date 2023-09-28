@@ -43,5 +43,5 @@ let cacheHead = JSON.parse(JSON.stringify(req.headers).toLowerCase());
   delete(cacheHead['sec-ch-ua-mobile']);
   delete(cacheHead['sec-ch-ua-platform']);
   delete(cacheHead['if-modified-since']);
-  return req.url+JSON.stringify(cacheHead);
+   return req.url.split('version=')[0]+JSON.stringify(cacheHead);
 }
