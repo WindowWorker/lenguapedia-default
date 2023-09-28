@@ -92,15 +92,15 @@ globalThis.configFromRequest = function(config, req) {
 }
 
 
-globalThis.checkStaticsFiles = async function(pat,res,bkcolor){
-  
+globalThis.checkStaticsFiles = async function(pat, res, bkcolor) {
+
   /*respond to ping from uptime robot*/
   if (pat == '/ping') {
     res.statusCode = 200;
     return res.endAvail();
   }
-  if ((pat == '/static/link-resolver.v.js')||(pat == '/static/inject-langs.js')){
-    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default'+pat.replace('/static',''));
+  if ((pat == '/static/link-resolver.v.js') || (pat == '/static/inject-langs.js')) {
+    let resp = await fetch('https://files-servleteer.vercel.app/lenguapedia/default' + pat.replace('/static', ''));
     res.setHeader('Content-Type', 'text/javascript');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.statusCode = 200;
@@ -111,10 +111,10 @@ globalThis.checkStaticsFiles = async function(pat,res,bkcolor){
   if (pat == '/static/mods.css') {
 
 
-    let resp=await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css');
-    let file = (await resp.text()).replaceAll('cce9ff',bkcolor);
-    res.setHeader('Content-Type',resp.headers.get('Content-Type'));
-   
+    let resp = await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css?');
+    let file = (await resp.text()).replaceAll('cce9ff', bkcolor);
+    res.setHeader('Content-Type', resp.headers.get('Content-Type'));
+
     return res.endAvail(file);
   }
 
@@ -128,11 +128,11 @@ globalThis.checkStaticsFiles = async function(pat,res,bkcolor){
 }
 
 
-globalThis.safeURLChars=function(str){
-str=str.replaceAll("(a')","á")
-.replaceAll("(e')","é")
-  .replaceAll("(i')","í")
-  .replaceAll("(o')","ó")
-  .replaceAll("(u')","ú")
+globalThis.safeURLChars = function(str) {
+  str = str.replaceAll("(a')", "á")
+    .replaceAll("(e')", "é")
+    .replaceAll("(i')", "í")
+    .replaceAll("(o')", "ó")
+    .replaceAll("(u')", "ú")
   return str;
 }
