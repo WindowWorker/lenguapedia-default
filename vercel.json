@@ -6,7 +6,7 @@
   },
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "(.*)",
       "destination": "api/index.mjs"
     }
   ]
