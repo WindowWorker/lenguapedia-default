@@ -160,7 +160,10 @@ response = await tryURLs([
               <http-header key="referer" value="`+referer+`"></http-header>
             </http-headers>
           </http-response>
-        </http><script src="https://files-servleteer.vercel.app/lenguapedia/check-referer.js"></script></head>`);
+        </http>
+        <script src="https://files-servleteer.vercel.app/lenguapedia/check-referer.js"></script>
+                <script src="https://files-servleteer.vercel.app/lenguapedia/default/image-loader.js"></script>
+        </head>`);
 
       return res.endAvail(
               transformBody(resBody,
