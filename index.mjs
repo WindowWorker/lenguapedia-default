@@ -54,7 +54,7 @@ async function onRequest(req, res) {
 
 
 let cacheKey=serverlessCache.generateCacheKey(req);
-let cacheVal;//=await serverlessCache.matchClone(cacheKey);
+let cacheVal=await serverlessCache.matchClone(cacheKey);
 let response;
 let referer;
  // console.log(cacheKey,cacheVal);
@@ -111,7 +111,7 @@ response = await tryURLs([
     hostConfig.hostEn],path,hostConfig.hash,reqDTO);
   
    if(response?.status&&(response?.status>199)&&(response?.status<300)){
- //   response=await serverlessCache.putClone(cacheKey,response);
+   response=await serverlessCache.putClone(cacheKey,response);
   }
   
   response = response||new Response();
