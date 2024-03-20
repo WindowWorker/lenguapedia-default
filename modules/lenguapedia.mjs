@@ -33,7 +33,7 @@ globalThis.getHostConfigDefaults = function() {
   defaultConfigs.hostTarget = '-m-wikipedia-org.translate.goog';
   defaultConfigs.hostIncubator = 'incubator-wikimedia-org.translate.goog/wiki/Wp/';
   defaultConfigs.hostWiki = '.m.wikipedia.org';
-  defaultConfigs.hostEn = 'lenguapedia-en.vercel.app';
+  defaultConfigs.hostEn = 'lenguapedia-en-ten.vercel.app';
   defaultConfigs.hostList.push(defaultConfigs.hostEn);
   defaultConfigs.xlangs = 'en.en';
   return defaultConfigs;
