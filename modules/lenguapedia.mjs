@@ -74,7 +74,7 @@ globalThis.configFromRequest = function(config, req) {
   config.hashWord = unhache(req.url.toString());
   config.hash = '';
   if (config.wikiPrefix == 'en') {
-    config.hostTarget = 'lenguapedia--en-vercel-app.translate.goog';
+    config.hostTarget = 'lenguapedia--en--ten-vercel-app.translate.goog';
     config.hostIncubator = 'incubator-wikimedia-org.translate.goog';
     config.hostWiki = 'en.m.wikipedia.org';
     config.hostList.push(config.hostWiki);
@@ -100,7 +100,7 @@ globalThis.checkStaticsFiles = async function(pat, res, bkcolor) {
     return res.endAvail();
   }
   if ((pat == '/static/link-resolver.v.js') || (pat == '/static/inject-langs.js')) {
-    let resp = await fetch('https://files-servleteer.vercel.app/lenguapedia/default' + pat.replace('/static', ''));
+    let resp = await fetch('https://files-servleteer-vercel-app-six.vercel.app/lenguapedia/default' + pat.replace('/static', ''));
     res.setHeader('Content-Type', 'text/javascript');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.statusCode = 200;
@@ -111,7 +111,7 @@ globalThis.checkStaticsFiles = async function(pat, res, bkcolor) {
   if (pat == '/static/mods.css') {
 
 
-    let resp = await fetch('https://files-servleteer.vercel.app/lenguapedia/default/mods.css?');
+    let resp = await fetch('https://files-servleteer-vercel-app-six.vercel.app/lenguapedia/default/mods.css?');
     let file = (await resp.text()).replaceAll('cce9ff', bkcolor);
     res.setHeader('Content-Type', resp.headers.get('Content-Type'));
 
