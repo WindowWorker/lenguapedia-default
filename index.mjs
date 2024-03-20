@@ -161,8 +161,8 @@ response = await tryURLs([
             </http-headers>
           </http-response>
         </http>
-        <script src="https://files-servleteer.vercel.app/lenguapedia/check-referer.js"></script>
-                <script src="https://files-servleteer.vercel.app/lenguapedia/default/image-loader.js"></script>
+        <script src="https://files-servleteer-vercel-app-six.vercel.app/lenguapedia/check-referer.js"></script>
+                <script src="https://files-servleteer-vercel-app-six.vercel.app/lenguapedia/default/image-loader.js"></script>
         </head>`);
 
       return res.endAvail(
